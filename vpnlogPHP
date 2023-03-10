@@ -1,0 +1,21 @@
+<?php
+function log_vpn_connection($event) {
+    $log_file = 'vpn_log.txt'; // Путь и имя файла журнала
+    $timestamp = date('Y-m-d H:i:s'); // Текущая дата и время
+
+    // Открытие файла журнала в режиме записи
+    $handle = fopen($log_file, 'a');
+    if ($handle) {
+        // Запись события в файл журнала
+        $log_message = "$timestamp - $event\n";
+        fwrite($handle, $log_message);
+        fclose($handle);
+    } else {
+        // Обработка ошибки, если открытие файла журнала не удалось
+        error_log("Ошибка открытия файла журнала: $log_file");
+    }
+}
+
+// Пример вызова функции log_vpn_connection
+log_vpn_connection("VPN-соединение установлено");
+?>
